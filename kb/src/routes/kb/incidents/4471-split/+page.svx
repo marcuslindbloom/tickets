@@ -19,12 +19,12 @@ signature: Marcus Lindbloom
   };
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Reading the reports, not
-their subjects, shows three problems. One fix closes only the first one.
+[#4471](/kb/incidents/4471) was marked known: one issue, one fix queued. Reading the reports, not
+their subjects, shows three problems. Engineering closed #4471 on 5 October; that closed two of them.
 
 <Callout kind="warn">
-The parser fix queued for #4471 does not fix <code>hint</code> or <code>shift</code>. Keep their
-reports open until their own fixes ship.
+<code>parser</code> is fixed ("fix(dates): parse dd/mm for eu locales"). <code>hint</code> won't be
+fixed: the booking-v3 form is retired. <code>shift</code> is still open: neither change touches it.
 </Callout>
 
 ## What #4471 holds
@@ -34,13 +34,13 @@ reports open until their own fixes ship.
 ## The three problems
 
 - **`parser`**: the shared parser reads every date month first, and every tenant on #4471 writes
-  the day first. Dates come out with day and month swapped. This is the fix already queued.
+  the day first. Dates come out with day and month swapped. Fixed.
 - **`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field. Day-first tenants on
   booking-v3 type month first, as told, and the form reads it day first. Same symptom, different
-  bug: it needs the hint fixed, not the parser.
+  bug: the parser fix does not reach it. Won't fix: booking-v3 is retired.
 - **`shift`**: the date moves by one day, not by a swap ("Tuesday 12 May… Monday 11 May", "only
   June", "Lisbon got Tuesday, Toronto got Monday"). The desk already read these as a one-day move
-  (`desk-notes.json`). It points at a time zone conversion.
+  (`desk-notes.json`). It points at a time zone conversion. Open.
 
 ## How the reports were placed
 
