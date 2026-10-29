@@ -4,7 +4,7 @@ title: '#4471 split · three problems, three tickets'
 owner: Marcus Lindbloom
 status: accepted
 reviewed: 2026-10-29
-signature: Marcus Lindbloom
+signature: v1.eyJzdWIiOiI2MDYxIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyNTg1MzEsImV4cCI6MTc5MzM0NDkzMX0.w3XfBvT17Av73YEuhWdQHIsg20le6PjQ0VpaMMKSoAQ
 ---
 
 <script>
