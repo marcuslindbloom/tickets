@@ -45,8 +45,9 @@ reports open until their own fixes ship.
 ## How the reports were placed
 
 By tenant, channel and form, with `causeOf` in `causes.ts`, the same as the
-[#4471 table](/kb/incidents/4471). A report the desk read as a one-day move is `shift`
-(`problems.ts`). Two things were not used:
+[#4471 table](/kb/incidents/4471), so the counts are the desk's. A report the desk read as a
+one-day move (`desk-notes.json`) stays counted where it is filed and is footnoted as `shift`.
+Two things were not used:
 
 - **Subject lines.** Every subject on a `hint` or `shift` report also appears on `parser`
   reports, so [decision 0001](/kb/decisions/0001-dedupe-by-subject), which merges on subject
