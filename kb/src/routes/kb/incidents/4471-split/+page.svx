@@ -1,0 +1,62 @@
+---
+layout: runbook
+title: '#4471 split · three problems, three tickets'
+owner: Marcus Lindbloom
+status: accepted
+reviewed: 2026-10-29
+signature: Marcus Lindbloom
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const tickets = {
+    parser: 'https://github.com/marcuslindbloom/tickets/issues/1',
+    hint: 'https://github.com/marcuslindbloom/tickets/issues/2',
+    shift: 'https://github.com/marcuslindbloom/tickets/issues/3',
+  };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Reading the reports, not
+their subjects, shows three problems. One fix closes only the first one.
+
+<Callout kind="warn">
+The parser fix queued for #4471 does not fix <code>hint</code> or <code>shift</code>. Keep their
+reports open until their own fixes ship.
+</Callout>
+
+## What #4471 holds
+
+<ProblemTable ticket={4471} {tickets} />
+
+## The three problems
+
+- **`parser`**: the shared parser reads every date month first, and every tenant on #4471 writes
+  the day first. Dates come out with day and month swapped. This is the fix already queued.
+- **`hint`**: the booking-v3 form prints `MM/DD/YYYY` under its date field. Day-first tenants on
+  booking-v3 type month first, as told, and the form reads it day first. Same symptom, different
+  bug: it needs the hint fixed, not the parser.
+- **`shift`**: the date moves by one day, not by a swap ("Tuesday 12 May… Monday 11 May", "only
+  June", "Lisbon got Tuesday, Toronto got Monday"). The desk already read these as a one-day move
+  (`desk-notes.json`). It points at a time zone conversion.
+
+## How the reports were placed
+
+By tenant, channel and form, with `causeOf` in `causes.ts`, the same as the
+[#4471 table](/kb/incidents/4471). A report the desk read as a one-day move is `shift`
+(`problems.ts`). Two things were not used:
+
+- **Subject lines.** Every subject on a `hint` or `shift` report also appears on `parser`
+  reports, so [decision 0001](/kb/decisions/0001-dedupe-by-subject), which merges on subject
+  alone, put all three problems in one ticket.
+- **Intake tags.** Intake guesses from the reporter's browser. The tag disagrees with the
+  tenant's cause on dozens of reports.
+
+## Lessons
+
+- A count is only as good as the merge. Read a sample of bodies before you merge, not after.
+- Same symptom is not same cause. Merge on cause; subject is a hint, not a key.
+
+<RenderStamp {signature} />
